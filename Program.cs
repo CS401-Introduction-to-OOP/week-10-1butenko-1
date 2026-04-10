@@ -9,28 +9,31 @@ class Program
         party.Add(new Character("Aragorn", ERoles.A, 10, 100, 150));
         party.Add(new Character("Legolas", ERoles.B, 11, 80, 200));
         party.Add(new Character("Gimli", ERoles.C, 11, 120, 100));
-        party.Add(new Character("Boromir", ERoles.A, 9, 0, 50)); // Dead
+        party.Add(new Character("Boromir", ERoles.A, 9, 0, 50));
+        
         party[3].Status = Status.Dead;
 
         EventLog eventLog = new EventLog();
+        
         eventLog.Log(1, "Encounter with Orcs", Event.Attack, -10);
         eventLog.Log(2, "Rest by the river", Event.Heal, 20);
         eventLog.Log(3, "Wizard's blessing", Event.Buff, 5);
         eventLog.Log(4, "Ambush!", Event.Attack, -15);
 
         Console.WriteLine("=== Party Members ===");
+        
         foreach (var ch in party)
         {
             Console.WriteLine($"{ch.Name} ({ch.Role}) - Lvl: {ch.Level}, HP: {ch.Hp}, Gold: {ch.GoldQuantity}, Status: {ch.Status}");
         }
 
-        Console.WriteLine("\n=== Active Characters (yield) ===");
+        Console.WriteLine("\n=== Active Characters ===");
         foreach (var ch in party.GetActiveCharacters())
         {
             Console.WriteLine(ch.Name);
         }
 
-        Console.WriteLine("\n=== Attack Events (yield) ===");
+        Console.WriteLine("\n=== Attack Events ===");
         foreach (var ev in eventLog.GetEventsByType(Event.Attack))
         {
             Console.WriteLine(ev);
@@ -56,7 +59,5 @@ class Program
         {
             Console.WriteLine($" - Role {group.Key}: {group.Count()} characters");
         }
-
-        Console.WriteLine("\nAssignment successfully implemented!");
     }
 }
